@@ -1,2 +1,2 @@
-# M.js
-Framework JS for dom manipulation ( new version of moodular, dylay, scrooly, laxicity, ... ), for animation, ...
+# masis
+JS Framework for DOM manipulation ( animation, position, moodular, dylay )
