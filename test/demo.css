@@ -1,0 +1,17 @@
+#sandbox {
+	width: 500px;
+	margin: 0 auto;
+	padding: 0;
+	list-style: none;
+}
+	#sandbox li {
+		float: left;
+		margin: 2px;
+		border-radius: 5px;
+		padding: 2px 5px;
+		font-size: 10px;
+	}
+		#sandbox li.active {
+			background-color: #955251 !important;
+			color: #FFF;
+		}
