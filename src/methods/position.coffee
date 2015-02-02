@@ -16,9 +16,10 @@
     j
   Array.prototype.forEach.call M.actives, (el, i) =>
     el.style.position = 'absolute'
-    _r = getComputedStyle(el)
-    $iw = parseInt el.offsetWidth + parseInt _r.marginLeft + parseInt _r.marginRight
-    $ih = parseInt el.offsetHeight + parseInt _r.marginTop + parseInt _r.marginBottom
+    _s = getComputedStyle(el)
+    _r = el.getBoundingClientRect()
+    $iw = parseInt _r.width + parseInt _s.marginLeft + parseInt _s.marginRight
+    $ih = parseInt _r.height + parseInt _s.marginTop + parseInt _s.marginBottom
     x = 0
     j = 0
     h = Infinity

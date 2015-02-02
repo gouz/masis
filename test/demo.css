@@ -1,5 +1,5 @@
 #sandbox {
-	width: 500px;
+	width: 80%;
 	margin: 0 auto;
 	padding: 0;
 	list-style: none;
@@ -10,6 +10,7 @@
 		border-radius: 5px;
 		padding: 2px 5px;
 		font-size: 10px;
+		transition: 1s all ease;
 	}
 		#sandbox li.active {
 			background-color: #955251 !important;

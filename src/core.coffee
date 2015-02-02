@@ -1,4 +1,4 @@
-class Ararat
+class Masis
   constructor: ->
     @_methods = {}
     @_effects = {}
@@ -9,6 +9,8 @@ class Ararat
     @options.view ?= 0
     @options.speed ?= 0
     @options.step ?= 1
+    @options.controls ?= ''
+    @options.controls = @options.controls.split(',')
     elements = document.querySelectorAll selector
     returns = []
     Array.prototype.forEach.call elements, (el, i) =>
@@ -26,11 +28,19 @@ class Ararat
       @_active()
     @on 'init', () =>
       @_active()
+    @on 'move', () =>
+      @current %= @actives.length
+      @current += @actives.length if @current < 0
+      @_active()
     @on 'next', () =>
       @current++
-      @current %= @actives.length
-      @_active()
+      @do 'move'
+    @on 'prev', () =>
+      @current--
+      @do 'move'
     @do 'reset'
+    for i in @options.controls
+      @_controls[i](@)
     @exec 'start'
     @
   _active: () ->
@@ -41,6 +51,8 @@ class Ararat
         el.classList.remove 'active'
   addMethod: (name, func) ->
     @_methods[name] = func
+  addControl: (name, func) ->
+    @_controls[name] = func
   exec: (name, options...) ->
     @_methods[name](@, options)
     @
@@ -52,4 +64,4 @@ class Ararat
     for i in @_hooks[hook]
       i(@)
 
-@Masis = new Ararat
+@Masis = new Masis
