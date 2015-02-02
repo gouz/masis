@@ -16,7 +16,8 @@ for (var i = 0; i < 50; i++) {
 }
 var mount = Masis.make('#sandbox', {
 	pulse: 10000,
-	controls: 'keys'
+	controls: 'keys',
+	view: 4
 }).exec('position');
 window.addEventListener('resize', function() {
 	mount.exec('position');

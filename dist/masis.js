@@ -68,7 +68,9 @@
           if (_this.current < 0) {
             _this.current += _this.actives.length;
           }
-          return _this._active();
+          _this._active();
+          _this.exec('view', _this.options.view);
+          return _this.exec('position');
         };
       })(this));
       this.on('next', (function(_this) {
@@ -89,6 +91,7 @@
         i = _ref[_i];
         this._controls[i](this);
       }
+      this.exec('view', this.options.view);
       this.exec('start');
       return this;
     };
@@ -307,11 +310,12 @@
     if (!nb.length) {
       nb = 0;
     }
+    nb = parseInt(nb);
     Array.prototype.forEach.call(M.children, function(el, i) {
       return el.style.display = 'none';
     });
     return Array.prototype.forEach.call(M.actives, function(el, i) {
-      if (!nb || nb && (M.current <= i && i < M.current + nb)) {
+      if (!nb || (nb && (M.current <= i && i < M.current + nb))) {
         return el.style.display = '';
       }
     });

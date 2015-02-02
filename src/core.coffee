@@ -32,6 +32,8 @@ class Masis
       @current %= @actives.length
       @current += @actives.length if @current < 0
       @_active()
+      @exec 'view', @options.view
+      @exec 'position'
     @on 'next', () =>
       @current++
       @do 'move'
@@ -41,6 +43,7 @@ class Masis
     @do 'reset'
     for i in @options.controls
       @_controls[i](@)
+    @exec 'view', @options.view
     @exec 'start'
     @
   _active: () ->
