@@ -7,8 +7,8 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   onError = function(err) {
       notify.onError({
-  		title:    "<%= error.filename %>:<%= error.location.first_line + 1 %>:<%= error.location.first_column + 1 %>",
-  		message:  "Error: <%= error.message %>",
+  		title:    "Gulp!",
+  		message:  "Error: <%= error %>",
   		sound:    "Beep"
   	})(err);
 	   this.emit('end');
@@ -25,11 +25,9 @@ gulp.task('coffee', function() {
     .pipe(concat('masis.coffee'))
 		.pipe(coffee())
 		.pipe(rename('masis.js'))
-		//.pipe(uglify())
+		.pipe(uglify())
 		.pipe(gulp.dest('dist'));
 });
-
-
 
 //watch
 gulp.task('default', function() {

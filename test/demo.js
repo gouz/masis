@@ -14,7 +14,10 @@ for (var i = 0; i < 50; i++) {
 	li.setAttribute('data-foo', Math.random());
 	sb.appendChild(li);
 }
+/*
 var mount = Masis.make('#sandbox').exec('position');
 window.addEventListener('resize', function() {
 	mount.exec('position');
 });
+*/
+var mound = Masis.make('#test_scroll').exec('scroll');
