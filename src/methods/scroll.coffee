@@ -34,6 +34,7 @@
       move parseInt(e['page' + moving]) - parseInt(previous['page' + moving])
   mw = {X : 0, Y : 0}
   maxmw = {X : parseInt(M.element.offsetWidth), Y : parseInt(M.element.offsetHeight)}
+  ###
   M.element.addEventListener 'mousewheel', (e) ->
     e = e.originalEvent if e.originalEvent?
     M.element.classList.add 'show-scrollbar'
@@ -52,7 +53,7 @@
     mw[moving] = maxmw[moving] if mw[moving] > maxmw[moving]
     move mw[moving]
     M.element.classList.remove 'show-scrollbar'
-
+  ###
   if horizontal
     trackH.style.position = 'absolute'
     trackH.style.bottom = trackH.style.left = 0

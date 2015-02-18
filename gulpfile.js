@@ -29,6 +29,22 @@ gulp.task('coffee', function() {
 		.pipe(gulp.dest('dist'));
 });
 
+gulp.task('coffee-sm', function() {
+	return gulp.src([
+    'src/core.sm.coffee',
+    'src/methods/filter.coffee',
+    'src/methods/position.coffee',
+    'src/methods/scroll.coffee',
+    'src/methods/view.coffee'
+    ])
+		.pipe(plumber({errorHandler: onError}))
+    .pipe(concat('masis.coffee'))
+		.pipe(coffee())
+		.pipe(rename('masis.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('dist'));
+});
+
 //watch
 gulp.task('default', function() {
 	gulp.start('coffee');
