@@ -89,7 +89,9 @@
       _ref = this.options.controls;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         i = _ref[_i];
-        this._controls[i](this);
+        if (i !== '') {
+          this._controls[i](this);
+        }
       }
       this.exec('view', this.options.view);
       this.exec('start');
@@ -200,7 +202,6 @@
     var hs, i, max, w, _i;
     w = ~~M.element.offsetWidth;
     M.element.style.position = 'relative';
-    M.element.style.left = M.element.style.top = 0;
     hs = [];
     for (i = _i = 0; 0 <= w ? _i <= w : _i >= w; i = 0 <= w ? ++_i : --_i) {
       hs[i] = 0;
@@ -253,7 +254,7 @@
         return _results;
       };
     })(this));
-    return M.element.style.height = Math.max.apply(Math, hs);
+    return M.element.style.height = (Math.max.apply(Math, hs)) + 'px';
   });
 
   this.Masis.addMethod('sort', function(M, opts) {

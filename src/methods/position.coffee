@@ -3,7 +3,6 @@
   #  gutter = 1 if not gutter
   w = ~~ M.element.offsetWidth
   M.element.style.position = 'relative'
-  M.element.style.left = M.element.style.top = 0
   hs = []
   for i in [0..w]
     hs[i] = 0
@@ -40,4 +39,4 @@
     j = $iw
     while j--
       hs[j + x] = h
-  M.element.style.height = Math.max.apply Math, hs
+  M.element.style.height = (Math.max.apply Math, hs) + 'px'

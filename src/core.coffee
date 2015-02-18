@@ -42,7 +42,7 @@ class Masis
       @do 'move'
     @do 'reset'
     for i in @options.controls
-      @_controls[i](@)
+      @_controls[i](@) if i != ''
     @exec 'view', @options.view
     @exec 'start'
     @

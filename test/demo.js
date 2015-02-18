@@ -14,11 +14,7 @@ for (var i = 0; i < 50; i++) {
 	li.setAttribute('data-foo', Math.random());
 	sb.appendChild(li);
 }
-var mount = Masis.make('#sandbox', {
-	pulse: 10000,
-	controls: 'keys',
-	view: 4
-}).exec('position');
+var mount = Masis.make('#sandbox').exec('position');
 window.addEventListener('resize', function() {
 	mount.exec('position');
 });
