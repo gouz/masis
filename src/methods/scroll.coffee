@@ -1,6 +1,7 @@
 @Masis.addMethod 'scroll', (M, opts) ->
+  opts = opts[0] if opts?
   opts.mode ?= 'vertical'
-  opts.gutter ?= '10px'
+  opts.gutter ?= 10
   opts.pad ?= 10
   M.element.style.position = 'relative'
   M.element.style.overflow = 'hidden'
@@ -57,10 +58,10 @@
   if horizontal
     trackH.style.position = 'absolute'
     trackH.style.bottom = trackH.style.left = 0
-    trackH.style.height = opts.gutter
+    trackH.style.height = opts.gutter + 'px'
     dragH.style.position = 'absolute'
     dragH.style.top = dragH.style.left = 0
-    dragH.style.height = opts.gutter
+    dragH.style.height = opts.gutter + 'px'
     dragH.addEventListener 'mousedown', (e) ->
       e.preventDefault()
       moving = 'X'
@@ -70,10 +71,10 @@
   if vertical
     trackV.style.position = 'absolute'
     trackV.style.top = trackV.style.right = 0
-    trackV.style.width = opts.gutter
+    trackV.style.width = opts.gutter + 'px'
     dragV.style.position = 'absolute'
     dragV.style.top = dragV.style.left = 0
-    dragV.style.width = opts.gutter
+    dragV.style.width = opts.gutter + 'px'
     dragV.addEventListener 'mousedown', (e) ->
       e.preventDefault()
       moving = 'Y'

@@ -19,4 +19,6 @@ var mount = Masis.make('#sandbox').exec('position');
 window.addEventListener('resize', function() {
 	mount.exec('position');
 });
-Masis.make('#test_scroll').exec('scroll');
+Masis.make('#test_scroll').exec('scroll', {
+	gutter: 5
+});

@@ -57,10 +57,10 @@ class Masis
   addControl: (name, func) ->
     @_controls[name] = func
   exec: (name, options...) ->
-    @_methods[name](@, options)
+    @_methods[name](@, options) if @_methods[name]?
     @
   on: (hook, func) ->
-    @_hooks[hook] = [] if not @_hooks[hook]?
+    @_hooks[hook] = [] if !@_hooks[hook]?
     @_hooks[hook].push func
   do: (hook) ->
     return if !@_hooks[hook]?
