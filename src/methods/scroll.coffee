@@ -23,38 +23,41 @@
   rh = parseInt(M.element.offsetHeight) / parseInt content.offsetHeight
   previous = null
   moving = no
+  xy = {
+    X : 0
+    Y : 0
+  }
   document.addEventListener 'mouseup', (e) ->
     e.preventDefault()
-    previous = null
     moving = no
     M.element.classList.remove 'show-scrollbar'
-    dragH.classList.remove 'moving' if horizontal
-    dragV.classList.remove 'moving' if vertical
+    if horizontal
+      dragH.classList.remove 'moving'
+      xy.X = parseInt dragH.style.left
+    if vertical
+      dragV.classList.remove 'moving'
+      xy.Y = parseInt dragV.style.top
   document.addEventListener 'mousemove', (e) ->
     if moving and previous?
       move parseInt(e['page' + moving]) - parseInt(previous['page' + moving])
-  mw = {X : 0, Y : 0}
-  maxmw = {X : parseInt(M.element.offsetWidth), Y : parseInt(M.element.offsetHeight)}
-  ###
   M.element.addEventListener 'mousewheel', (e) ->
     e = e.originalEvent if e.originalEvent?
     M.element.classList.add 'show-scrollbar'
     moving = if e.shiftKey || e.wheelDeltaX then 'X' else 'Y'
-    mw[moving] += opts.pad * (if e.wheelDelta < 0 then 1 else -1)
-    mw[moving] = 0 if mw[moving] < 0
-    mw[moving] = maxmw[moving] if mw[moving] > maxmw[moving]
-    move mw[moving]
+    move opts.pad * (if e.wheelDelta < 0 then 1 else -1)
+    moving = no
     M.element.classList.remove 'show-scrollbar'
+    xy.X = parseInt dragH.style.left if horizontal
+    xy.Y = parseInt dragV.style.top if vertical
   M.element.addEventListener 'DOMMouseScroll', (e) ->
     e = e.originalEvent if e.originalEvent?
     M.element.classList.add 'show-scrollbar'
     moving = if e.shiftKey then 'X' else 'Y'
-    mw[moving] += opts.pad * (if -e.detail < 0 then 1 else -1)
-    mw[moving] = 0 if mw[moving] < 0
-    mw[moving] = maxmw[moving] if mw[moving] > maxmw[moving]
-    move mw[moving]
+    move opts.pad * (if -e.detail < 0 then 1 else -1)
+    moving = no
     M.element.classList.remove 'show-scrollbar'
-  ###
+    xy.X = parseInt dragH.style.left if horizontal
+    xy.Y = parseInt dragV.style.top if vertical
   if horizontal
     trackH.style.position = 'absolute'
     trackH.style.bottom = trackH.style.left = 0
@@ -94,6 +97,7 @@
   window.addEventListener 'resize', () ->
   	redraw()
   move = (pad) ->
+    pad += xy[moving]
     if moving is 'X'
       left = pad
       max = parseInt(trackH.offsetWidth) - parseInt(dragH.offsetWidth)
