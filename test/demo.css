@@ -4,7 +4,6 @@
 	padding: 0;
 	list-style: none;
 	overflow: hidden;
-	display: none;
 }
 	#sandbox li {
 		float: left;

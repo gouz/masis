@@ -1,14 +1,15 @@
-@Masis.addMethod 'filter', (M, selector) ->
-  selector = if selector.length then selector[0] else '*'
+Masis.prototype.filter = (selector) ->
+  selector ?= '*'
   if selector is '*'
-    M.actives = M.children
+    @actives = @children
   else
     matches = []
-    found = M.element.querySelectorAll selector
-    for i in M.actives
+    found = @element.querySelectorAll selector
+    for i in @actives
       for j in found
         if i is j
           matches.push i
           break
-    M.actives = matches
-  M.exec 'view'
+    @actives = matches
+  @view()
+  @

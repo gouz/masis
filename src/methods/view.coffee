@@ -1,8 +1,8 @@
-@Masis.addMethod 'view', (M, nb) ->
+Masis.prototype.view = (nb) ->
   nb ?= 0
-  nb = 0 if !nb.length
   nb = parseInt nb
-  Array.prototype.forEach.call M.children, (el, i) ->
+  Array.prototype.forEach.call @children, (el, i) ->
     el.style.display = 'none'
-  Array.prototype.forEach.call M.actives, (el, i) ->
-    el.style.display = '' if not nb or (nb and M.current <= i < M.current + nb)
+  Array.prototype.forEach.call @actives, (el, i) =>
+    el.style.display = '' if not nb or (nb and @current <= i < @current + nb)
+  @

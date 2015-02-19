@@ -1,8 +1,6 @@
-@Masis.addMethod 'position', (M, opts) ->
-  #  gutter = if not opts.length then 1 else ~~ opts[0]
-  #  gutter = 1 if not gutter
-  w = ~~ M.element.offsetWidth
-  M.element.style.position = 'relative'
+Masis.prototype.position = (opts) ->
+  w = parseInt @element.offsetWidth
+  @element.style.position = 'relative'
   hs = []
   for i in [0..w]
     hs[i] = 0
@@ -13,7 +11,7 @@
       if j < hs[x + i]
         j = hs[x + i]
     j
-  Array.prototype.forEach.call M.actives, (el, i) =>
+  Array.prototype.forEach.call @actives, (el, i) =>
     el.style.position = 'absolute'
     _s = getComputedStyle(el)
     _r = el.getBoundingClientRect()
@@ -39,4 +37,5 @@
     j = $iw
     while j--
       hs[j + x] = h
-  M.element.style.height = (Math.max.apply Math, hs) + 'px'
+  @element.style.height = (Math.max.apply Math, hs) + 'px'
+  @
