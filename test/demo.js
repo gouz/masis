@@ -18,7 +18,9 @@ var tab = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 for (var i = 0; i < 20; i++)
 	addBlock();
 var dylay = new Masis('#sandbox');
-dylay.position();
+dylay.position({
+	gutter: 5
+});
 window.addEventListener('resize', function() {
 	dylay.position();
 });

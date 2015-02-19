@@ -1,5 +1,4 @@
-Masis.prototype.filter = (selector) ->
-  selector ?= '*'
+Masis.prototype.filter = (selector = '*') ->
   if selector is '*'
     @actives = @children
   else

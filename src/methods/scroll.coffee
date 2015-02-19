@@ -1,5 +1,4 @@
-Masis.prototype.scroll = (opts) ->
-  opts ?= {}
+Masis.prototype.scroll = (opts = {}) ->
   opts.mode ?= 'vertical'
   opts.gutter ?= 10
   opts.pad ?= 10

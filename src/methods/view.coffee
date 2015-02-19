@@ -1,5 +1,4 @@
-Masis.prototype.view = (nb) ->
-  nb ?= 0
+Masis.prototype.view = (nb = 0) ->
   nb = parseInt nb
   Array.prototype.forEach.call @children, (el, i) ->
     el.style.display = 'none'
