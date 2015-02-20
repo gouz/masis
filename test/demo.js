@@ -1,10 +1,10 @@
 var tab = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-	wh = ['20', '40', '60', '80', '100'],
+	wh = ['20', '30', '40', '50', '60'],
 	sb = document.querySelector('#sandbox'),
 	addBlock = function () {
 		var li = document.createElement('li');
 		li.innerHTML = tab[Math.floor(26*Math.random())];
-		li.style.width = wh[Math.floor(5*Math.random())] + 'px';
+	//	li.style.width = wh[Math.floor(5*Math.random())] + 'px';
 		li.style.height = wh[Math.floor(5*Math.random())] + 'px';
 		if (li.innerHTML == 'A' || li.innerHTML == 'E' || li.innerHTML == 'I' || li.innerHTML == 'O' || li.innerHTML == 'U' || li.innerHTML == 'Y')
 			li.classList.add('voyelle');
@@ -15,11 +15,11 @@ var tab = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 		sb.appendChild(li);
 	},
 	a = document.querySelector('#js-add');
-for (var i = 0; i < 20; i++)
+for (var i = 0; i < 200; i++)
 	addBlock();
 var dylay = new Masis('#sandbox');
-dylay.filter('a').position({
-	gutter: 5
+dylay.position({
+	gutter: 24
 });
 window.addEventListener('resize', function() {
 	dylay.position();
@@ -30,8 +30,9 @@ scrooly.scroll({
 	width: '300px',
 	height: '100px'
 });
-a.addEventListener('click', function() {
+/*
+setInterval(function() {
 	addBlock();
 	dylay.populate().position();
-	return false;
-});
+}, 1000);
+*/

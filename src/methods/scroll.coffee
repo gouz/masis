@@ -60,24 +60,17 @@ Masis.prototype.scroll = (opts = {}) ->
   document.addEventListener 'mousemove', (e) ->
     if moving and previous?
       move parseInt(e['page' + moving]) - parseInt(previous['page' + moving])
-  elmnt.addEventListener 'mousewheel', (e) ->
+  wheeling = (e) ->
     e = e.originalEvent if e.originalEvent?
     elmnt.classList.add 'show-scrollbar'
     moving = if e.shiftKey || e.wheelDeltaX then 'X' else 'Y'
-    move opts.pad * (if e.wheelDelta < 0 then 1 else -1)
+    move opts.pad * (if (e.wheelDelta || -e.detail) < 0 then 1 else -1)
     moving = no
     elmnt.classList.remove 'show-scrollbar'
     xy.X = parseInt dragH.style.left if horizontal
     xy.Y = parseInt dragV.style.top if vertical
-  elmnt.addEventListener 'DOMMouseScroll', (e) ->
-    e = e.originalEvent if e.originalEvent?
-    elmnt.classList.add 'show-scrollbar'
-    moving = if e.shiftKey then 'X' else 'Y'
-    move opts.pad * (if -e.detail < 0 then 1 else -1)
-    moving = no
-    elmnt.classList.remove 'show-scrollbar'
-    xy.X = parseInt dragH.style.left if horizontal
-    xy.Y = parseInt dragV.style.top if vertical
+  elmnt.addEventListener 'mousewheel', wheeling, false
+  elmnt.addEventListener 'DOMMouseScroll', wheeling, false
   if dragH?
     dragH.addEventListener 'mousedown', (e) ->
       e.preventDefault()
