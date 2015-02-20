@@ -18,7 +18,7 @@ var tab = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 for (var i = 0; i < 20; i++)
 	addBlock();
 var dylay = new Masis('#sandbox');
-dylay.position({
+dylay.filter('a').position({
 	gutter: 5
 });
 window.addEventListener('resize', function() {
@@ -26,7 +26,9 @@ window.addEventListener('resize', function() {
 });
 var scrooly = new Masis('#test_scroll');
 scrooly.scroll({
-	gutter: 5
+	gutter: 5,
+	width: '300px',
+	height: '100px'
 });
 a.addEventListener('click', function() {
 	addBlock();

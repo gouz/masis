@@ -2,28 +2,46 @@ Masis.prototype.scroll = (opts = {}) ->
   if opts is 'redraw'
     @scroll_redraw()
     return @
-  opts.mode ?= 'vertical'
   opts.gutter ?= 10
   opts.pad ?= 10
   elmnt = @element
   elmnt.style.position = 'relative'
   elmnt.style.overflow = 'hidden'
   elmnt.innerHTML = '<div class="mscr-content">' + elmnt.innerHTML + '</div>'
-  horizontal = (opts.mode.indexOf('horizontal') != -1)
-  vertical = (opts.mode.indexOf('vertical') != -1)
-  if horizontal
-    elmnt.innerHTML += '<div class="mscr-track-h"><div class="mscr-drag-h"/></div>'
-  if vertical
-    elmnt.innerHTML += '<div class="mscr-track-v"><div class="mscr-drag-v"/></div>'
+  elmnt.innerHTML += '<div class="mscr-track-h"><div class="mscr-drag-h"/></div>'
+  elmnt.innerHTML += '<div class="mscr-track-v"><div class="mscr-drag-v"/></div>'
   content = elmnt.querySelector '.mscr-content'
-  trackH = elmnt.querySelector '.mscr-track-h'
-  dragH = elmnt.querySelector '.mscr-drag-h'
-  trackV = elmnt.querySelector '.mscr-track-v'
-  dragV = elmnt.querySelector '.mscr-drag-v'
+  content.style.width = elmnt.offsetWidth + 'px'
+  content.style.height = elmnt.offsetHeight + 'px'
+  elmnt.style.width = opts.width if opts.width?
   content.style.position = 'absolute'
   content.style.top = content.style.left = 0
-  rw = parseInt(content.offsetWidth) / parseInt elmnt.offsetWidth
+  elmnt.style.height = opts.height if opts.height?
+  rw = parseInt(elmnt.offsetWidth) / parseInt content.offsetWidth
   rh = parseInt(elmnt.offsetHeight) / parseInt content.offsetHeight
+  horizontal = rw < 1
+  vertical = rh < 1
+  if horizontal
+    trackH = elmnt.querySelector '.mscr-track-h'
+    dragH = elmnt.querySelector '.mscr-drag-h'
+    trackH.style.position = 'absolute'
+    trackH.style.bottom = trackH.style.left = 0
+    trackH.style.height = opts.gutter + 'px'
+    dragH.style.position = 'absolute'
+    dragH.style.top = dragH.style.left = 0
+    dragH.style.height = opts.gutter + 'px'
+  if vertical
+    trackV = elmnt.querySelector '.mscr-track-v'
+    dragV = elmnt.querySelector '.mscr-drag-v'
+    trackV.style.position = 'absolute'
+    trackV.style.top = trackV.style.right = 0
+    trackV.style.width = opts.gutter + 'px'
+    dragV.style.position = 'absolute'
+    dragV.style.top = dragV.style.left = 0
+    dragV.style.width = opts.gutter + 'px'
+  if horizontal and vertical
+    rw = (parseInt(elmnt.offsetWidth) - opts.gutter) / parseInt content.offsetWidth
+    rh = (parseInt(elmnt.offsetHeight) - opts.gutter) / parseInt content.offsetHeight
   previous = null
   moving = no
   xy =
@@ -60,26 +78,14 @@ Masis.prototype.scroll = (opts = {}) ->
     elmnt.classList.remove 'show-scrollbar'
     xy.X = parseInt dragH.style.left if horizontal
     xy.Y = parseInt dragV.style.top if vertical
-  if horizontal
-    trackH.style.position = 'absolute'
-    trackH.style.bottom = trackH.style.left = 0
-    trackH.style.height = opts.gutter + 'px'
-    dragH.style.position = 'absolute'
-    dragH.style.top = dragH.style.left = 0
-    dragH.style.height = opts.gutter + 'px'
+  if dragH?
     dragH.addEventListener 'mousedown', (e) ->
       e.preventDefault()
       moving = 'X'
       previous = e
       elmnt.classList.add 'show-scrollbar'
       @classList.add 'moving'
-  if vertical
-    trackV.style.position = 'absolute'
-    trackV.style.top = trackV.style.right = 0
-    trackV.style.width = opts.gutter + 'px'
-    dragV.style.position = 'absolute'
-    dragV.style.top = dragV.style.left = 0
-    dragV.style.width = opts.gutter + 'px'
+  if dragV?
     dragV.addEventListener 'mousedown', (e) ->
       e.preventDefault()
       moving = 'Y'
@@ -89,6 +95,9 @@ Masis.prototype.scroll = (opts = {}) ->
   @scroll_redraw = () ->
     w = parseInt elmnt.offsetWidth
     h = parseInt elmnt.offsetHeight
+    if vertical and horizontal
+      w -= opts.gutter
+      h -= opts.gutter
     if horizontal
       trackH.style.width = w + 'px'
       dragH.style.width = ~~(w * rw) + 'px'
@@ -104,12 +113,12 @@ Masis.prototype.scroll = (opts = {}) ->
       left = max if left > max
       left = 0 if left < 0
       dragH.style.left = left + 'px'
-      content.style.marginLeft = -left / rw + 'px'
+      content.style.left = ~~(-left/rw) + 'px'
     else
       top = pad
       max = parseInt(trackV.offsetHeight) - parseInt(dragV.offsetHeight)
       top = max if top > max
       top = 0 if top < 0
       dragV.style.top = top + 'px'
-      content.style.marginTop = -top / rh + 'px'
+      content.style.top = ~~(-top/rh) + 'px'
   @

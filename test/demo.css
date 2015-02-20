@@ -20,7 +20,6 @@
 
 #test_scroll {
 	font-size: 12px;
-	height: 100px;
 }
 div[class^="mscr-track-"] {
 	background: #EEE; border-radius: 5px; opacity: 0;
