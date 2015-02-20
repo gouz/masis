@@ -11,4 +11,3 @@ Masis.prototype.filter = (selector = '*') ->
           break
     @actives = matches
   @view()
-  @

@@ -1,4 +1,7 @@
 Masis.prototype.scroll = (opts = {}) ->
+  if opts is 'redraw'
+    @scroll_redraw()
+    return @
   opts.mode ?= 'vertical'
   opts.gutter ?= 10
   opts.pad ?= 10
@@ -23,10 +26,9 @@ Masis.prototype.scroll = (opts = {}) ->
   rh = parseInt(elmnt.offsetHeight) / parseInt content.offsetHeight
   previous = null
   moving = no
-  xy = {
+  xy =
     X : 0
     Y : 0
-  }
   document.addEventListener 'mouseup', (e) ->
     e.preventDefault()
     moving = no
@@ -84,7 +86,7 @@ Masis.prototype.scroll = (opts = {}) ->
       previous = e
       elmnt.classList.add 'show-scrollbar'
       @classList.add 'moving'
-  redraw = () ->
+  @scroll_redraw = () ->
     w = parseInt elmnt.offsetWidth
     h = parseInt elmnt.offsetHeight
     if horizontal
@@ -93,9 +95,7 @@ Masis.prototype.scroll = (opts = {}) ->
     if vertical
       trackV.style.height = h + 'px'
       dragV.style.height = ~~(h * rh) + 'px'
-  redraw()
-  window.addEventListener 'resize', () ->
-  	redraw()
+  @scroll_redraw()
   move = (pad) ->
     pad += xy[moving]
     if moving is 'X'

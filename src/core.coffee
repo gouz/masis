@@ -1,6 +1,5 @@
 class Masis
-  constructor: (selector, options = {}) ->
-    @options = options
+  constructor: (selector, @options = {}) ->
     elements = document.querySelectorAll selector
     returns = []
     Array.prototype.forEach.call elements, (el, i) =>
@@ -12,6 +11,5 @@ class Masis
   _init: (element) ->
     @element = element
     @populate()
-    @
 
 @Masis = Masis
