@@ -1,9 +1,10 @@
 #sandbox {
 	width: 80%;
 	margin: 0 auto;
-	padding: 0;
 	list-style: none;
 	overflow: hidden;
+	padding-top: 30px;
+	padding-left: 50px;
 }
 	#sandbox li {
 		float: left;

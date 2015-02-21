@@ -16,8 +16,8 @@ Masis.prototype.position = (opts = {}) ->
     el.style.position = 'absolute'
     _s = getComputedStyle(el)
     _r = el.getBoundingClientRect()
-    $iw = parseInt _r.width + parseInt _s.marginLeft + parseInt _s.marginRight
-    $ih = parseInt _r.height + parseInt _s.marginTop + parseInt _s.marginBottom
+    $iw = parseInt(_r.width) + parseInt(_s.marginLeft) + parseInt _s.marginRight
+    $ih = parseInt(_r.height) + parseInt(_s.marginTop) + parseInt _s.marginBottom
     x = 0
     j = 0
     h = Infinity
