@@ -1,4 +1,4 @@
-Masis.prototype.lazy = (threshold = 0, attr = 'data-src') ->
+Masis.prototype.lazy = (threshold = 0, attr = 'data-src', callback = null) ->
   wheight = window.innerHeight|| document.documentElement.clientHeight
   imgs = @element.querySelectorAll 'img[' + attr + ']'
   lazyload = () =>
@@ -10,6 +10,7 @@ Masis.prototype.lazy = (threshold = 0, attr = 'data-src') ->
         el.removeAttribute attr
         el.addEventListener 'load', () ->
           @style.opacity = 1
+          callback() if callback?
         , false
   window.addEventListener 'scroll', () =>
     lazyload()

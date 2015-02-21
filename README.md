@@ -22,7 +22,7 @@ Filter and show the matching children for the selector specified in parameter
 var m = new Masis('#sandbox').filter('.consonne');
 ```
 
-#### lazy(threshold = 0, attr = 'data-src')
+#### lazy(threshold = 0, attr = 'data-src', callback = function() {})
 Create a lazyloading effect on images
 ```
 var m = new Masis('#sandbox').lazy(200);

@@ -42,7 +42,9 @@ scrooly = new Masis('#sandbox-scroll').scroll({
 	width: '350px',
 	height: '100px'
 });
-lazy = new Masis('#sandbox-lazy').lazy(200);
+lazy = new Masis('#sandbox-lazy').lazy(200, 'data-src', function() {
+	console.log('test');
+});
 setTimeout(function() {
 	addBlocks(10, sbp);
 	dylay.populate().sort().filter('.consonne').position();
