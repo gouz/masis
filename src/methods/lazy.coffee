@@ -5,7 +5,7 @@ Masis.prototype.lazy = (threshold = 0, attr = 'data-src') ->
     imgs = @element.querySelectorAll 'img[' + attr + ']'
     Array.prototype.forEach.call imgs, (el) ->
       rect = el.getBoundingClientRect()
-      if 0 < (rect.top - threshold) < wheight
+      if -threshold <= (rect.top - threshold) <= wheight
         el.setAttribute('src', el.getAttribute attr)
         el.removeAttribute attr
         el.addEventListener 'load', () ->
