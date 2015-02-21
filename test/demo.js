@@ -36,7 +36,7 @@ for (var i = 0; i <10; i++) {
 	addBlocks(10, sbs);
 }
 addImages(100, sbl);
-dylay.populate().position();
+dylay.populate().position().view(50);
 scrooly = new Masis('#sandbox-scroll').scroll({
 	gutter: 5,
 	width: '350px',
