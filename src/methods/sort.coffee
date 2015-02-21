@@ -1,9 +1,5 @@
-Masis.prototype.sort = (opts) ->
-  [type, way] = opts
-  type ?= 'text'
-  way ?= 'ASC'
+Masis.prototype.sort = (type = 'text', way = 'ASC') ->
   way = way.toUpperCase()
-  @filter(type) if type isnt 'text'
   actives = Array.prototype.slice.call @actives, 0
   actives.sort (a, b) ->
     t = type.slice 1, -1
@@ -13,5 +9,4 @@ Masis.prototype.sort = (opts) ->
     r * va.localeCompare vb
   for i of actives
     @element.appendChild actives[i]
-  @filter(type) if type isnt 'text'
   @

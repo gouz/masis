@@ -35,7 +35,7 @@ for (var i = 0; i <10; i++) {
 	addChars(100, sbs);
 	addBlocks(10, sbs);
 }
-addImages(40, sbl);
+addImages(100, sbl);
 dylay.populate().position();
 scrooly = new Masis('#sandbox-scroll').scroll({
 	gutter: 5,
@@ -46,6 +46,6 @@ lazy = new Masis('#sandbox-lazy').lazy({
 	threshold: 200
 });
 setTimeout(function() {
-	addBlocks(100, sbp);
-	dylay.populate().position();
+	addBlocks(10, sbp);
+	dylay.populate().sort().filter('.consonne').position();
 }, 1000);

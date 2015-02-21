@@ -10,4 +10,5 @@ Masis.prototype.filter = (selector = '*') ->
           matches.push i
           break
     @actives = matches
+  @populate()
   @view()

@@ -15,7 +15,7 @@
 		transition: 1s all ease;
 	}
 
-#sandbox-scroll { font-size: 12px; }
+#sandbox-scroll { font-size: 12px; margin: 10px auto; }
 	#sandbox-scroll div[class^="mscr-track-"] {
 		background: #EEE; border-radius: 5px; opacity: 0; transition: all .2s;
 	}
@@ -25,4 +25,5 @@
 	#sandbox-scroll:hover div[class^="mscr-track-"],
 	#sandbox-scroll.show-scrollbar div[class^="mscr-track-"] { opacity: .7; }
 
-#sandbox-lazy img { opacity: 0; transition: opacity .3s ease-in; }
+#sandbox-lazy { margin: 10px auto; width: 80%; }
+	#sandbox-lazy img { opacity: 0; transition: opacity .3s ease-in; }
