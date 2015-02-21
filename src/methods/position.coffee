@@ -1,5 +1,5 @@
 Masis.prototype.position = (opts = {}) ->
-  opts.gutter ?= 1
+  opts.pad ?= 1
   w = parseInt @element.offsetWidth
   @element.style.position = 'relative'
   hs = []
@@ -8,7 +8,7 @@ Masis.prototype.position = (opts = {}) ->
   max = (x, w, hs) ->
     i = 0
     j = hs[x]
-    while (i += opts.gutter) < w
+    while (i += opts.pad) < w
       if j < hs[x + i]
         j = hs[x + i]
     j
@@ -23,7 +23,7 @@ Masis.prototype.position = (opts = {}) ->
     h = Infinity
     _h = h
     while j <= w
-      k = j - opts.gutter
+      k = j - opts.pad
       _w = j + $iw
       while k++ <= _w
         _k = k + $iw

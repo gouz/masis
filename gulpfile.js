@@ -25,7 +25,7 @@ gulp.task('coffee', function() {
     .pipe(concat('masis.coffee'))
 		.pipe(coffee())
 		.pipe(rename('masis.js'))
-		.pipe(uglify())
+	 	.pipe(uglify())
 		.pipe(gulp.dest('dist'));
 });
 

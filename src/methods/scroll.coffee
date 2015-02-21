@@ -1,7 +1,4 @@
 Masis.prototype.scroll = (opts = {}) ->
-  if opts is 'redraw'
-    @scroll_redraw()
-    return @
   opts.gutter ?= 10
   opts.pad ?= 10
   elmnt = @element
@@ -87,19 +84,17 @@ Masis.prototype.scroll = (opts = {}) ->
       previous = e
       elmnt.classList.add 'show-scrollbar'
       @classList.add 'moving'
-  @scroll_redraw = () ->
-    w = parseInt elmnt.offsetWidth
-    h = parseInt elmnt.offsetHeight
-    if vertical and horizontal
-      w -= opts.gutter
-      h -= opts.gutter
-    if horizontal
-      trackH.style.width = w + 'px'
-      dragH.style.width = ~~(w * rw) + 'px'
-    if vertical
-      trackV.style.height = h + 'px'
-      dragV.style.height = ~~(h * rh) + 'px'
-  @scroll_redraw()
+  w = parseInt elmnt.offsetWidth
+  h = parseInt elmnt.offsetHeight
+  if vertical and horizontal
+    w -= opts.gutter
+    h -= opts.gutter
+  if horizontal
+    trackH.style.width = w + 'px'
+    dragH.style.width = ~~(w * rw) + 'px'
+  if vertical
+    trackV.style.height = h + 'px'
+    dragV.style.height = ~~(h * rh) + 'px'
   move = (pad) ->
     pad += xy[moving]
     if moving is 'X'
