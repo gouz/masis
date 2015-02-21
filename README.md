@@ -1,7 +1,7 @@
 masis
 =====
 
-Masis is a tiny toolbox in JS
+Masis is a tiny toolbox in JS, no depencies
 
 Use
 ---
