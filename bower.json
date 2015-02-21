@@ -1,0 +1,21 @@
+{
+  "name": "masis",
+  "version": "0.0.1",
+  "homepage": "https://github.com/gouz/masis",
+  "authors": [
+    "GouZ <sylvain.gougouzian@gmail.com>"
+  ],
+  "description": "tiny js toolbox",
+  "main": "dist/masis.js",
+  "keywords": [
+    "js",
+    "toolbox",
+    "lazyloading",
+    "dynamic",
+    "layout"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules"
+  ]
+}
