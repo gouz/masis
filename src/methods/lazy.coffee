@@ -12,7 +12,7 @@ Masis.prototype.lazy = (threshold = 0, attr = 'data-src', callback = null) ->
           @style.opacity = 1
           callback() if callback?
         , false
-  window.addEventListener 'scroll', () =>
+  window.addEventListener 'scroll', () ->
     lazyload()
   , false
   lazyload()
