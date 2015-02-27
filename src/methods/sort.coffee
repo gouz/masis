@@ -1,7 +1,7 @@
 Masis.prototype.sort = (type = 'text', way = 'ASC') ->
   way = way.toUpperCase()
-  actives = Array.prototype.slice.call @actives, 0
-  actives.sort (a, b) ->
+  children = Array.prototype.slice.call @children, 0
+  children.sort (a, b) ->
     t = type.slice 1, -1
     va = if type != 'text' then a.getAttribute(t) else a.innerHTML
     vb = if type != 'text' then b.getAttribute(t) else b.innerHTML
@@ -9,6 +9,6 @@ Masis.prototype.sort = (type = 'text', way = 'ASC') ->
     va ?= ''
     vb ?= ''
     r * va.localeCompare vb
-  for i of actives
-    @element.appendChild actives[i]
-  @
+  for i in children
+    @element.appendChild i
+  @populate()

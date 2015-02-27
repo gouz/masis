@@ -2,13 +2,10 @@ Masis.prototype.filter = (selector = '*') ->
   if selector is '*'
     @actives = @children
   else
+    match = (el, selector) ->
+      (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector).call(el, selector)
     matches = []
-    found = @element.querySelectorAll selector
     for i in @actives
-      for j in found
-        if i is j
-          matches.push i
-          break
+      matches.push i if match i, selector
     @actives = matches
-  @populate()
   @view()
