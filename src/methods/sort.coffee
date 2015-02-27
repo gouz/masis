@@ -6,6 +6,8 @@ Masis.prototype.sort = (type = 'text', way = 'ASC') ->
     va = if type != 'text' then a.getAttribute(t) else a.innerHTML
     vb = if type != 'text' then b.getAttribute(t) else b.innerHTML
     r = if way is 'ASC' then 1 else -1
+    va ?= ''
+    vb ?= ''
     r * va.localeCompare vb
   for i of actives
     @element.appendChild actives[i]
