@@ -5,14 +5,15 @@
   "authors": [
     "GouZ <sylvain.gougouzian@gmail.com>"
   ],
-  "description": "tiny js toolbox",
+  "description": "tiny js toolkit",
   "main": "dist/masis.js",
   "keywords": [
     "js",
-    "toolbox",
+    "toolkit",
     "lazyloading",
     "dynamic",
-    "layout"
+    "layout",
+    "scrollbar"
   ],
   "license": "MIT",
   "ignore": [
