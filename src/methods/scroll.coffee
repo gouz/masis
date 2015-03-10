@@ -3,6 +3,8 @@ Masis.prototype.scroll = (opts = {}) ->
   opts.pad ?= 10
   elmnt = @element
   elmnt.innerHTML = '<div class="mscr-content">' + elmnt.innerHTML + '</div>'
+  elmnt.innerHTML += '<div class="mscr-track-h"><div class="mscr-drag-h"/></div>'
+  elmnt.innerHTML += '<div class="mscr-track-v"><div class="mscr-drag-v"/></div>'
   content = elmnt.querySelector '.mscr-content'
   content.style.width = elmnt.offsetWidth + 'px'
   content.style.height = elmnt.offsetHeight + 'px'
@@ -32,7 +34,6 @@ Masis.prototype.scroll = (opts = {}) ->
     elmnt.classList.add 'show-scrollbar'
     t.classList.add 'moving'
   if horizontal
-    elmnt.innerHTML += '<div class="mscr-track-h"><div class="mscr-drag-h"/></div>'
     trackH = elmnt.querySelector '.mscr-track-h'
     dragH = trackH.querySelector '.mscr-drag-h'
     trackH.style.position = 'absolute'
@@ -41,7 +42,7 @@ Masis.prototype.scroll = (opts = {}) ->
     dragH.style.position = 'absolute'
     dragH.style.top = dragH.style.left = 0
     dragH.style.height = opts.gutter + 'px'
-#    rw = (ew - parseInt opts.gutter) / cw
+    rw = (ew - parseInt opts.gutter) / cw
     w = ew
     if vertical
       w -= parseInt opts.gutter
@@ -50,7 +51,6 @@ Masis.prototype.scroll = (opts = {}) ->
     dragH.addEventListener 'mousedown', (e) ->
       movingEvent e, 'X', @
   if vertical
-    elmnt.innerHTML += '<div class="mscr-track-v"><div class="mscr-drag-v"/></div>'
     trackV = elmnt.querySelector '.mscr-track-v'
     dragV = trackV.querySelector '.mscr-drag-v'
     trackV.style.position = 'absolute'
@@ -61,7 +61,7 @@ Masis.prototype.scroll = (opts = {}) ->
     dragV.style.width = opts.gutter + 'px'
     dragV.addEventListener 'mousedown', (e) ->
       movingEvent e, 'Y', @
-#    rh = (eh - parseInt opts.gutter) / ch
+    rh = (eh - parseInt opts.gutter) / ch
     h = eh
     if horizontal
       h -= opts.gutter
