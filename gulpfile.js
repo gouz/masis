@@ -17,23 +17,18 @@ var gulp = require('gulp'),
 gulp.task('coffee', function() {
 	return gulp.src([
     'src/core.coffee',
-    'src/controls/*.coffee',
-    'src/effects/*.coffee',
-    'src/methods/*.coffee'
+    'src/methods/*.coffee',
     ])
 		.pipe(plumber({errorHandler: onError}))
     .pipe(concat('masis.coffee'))
 		.pipe(coffee())
 		.pipe(rename('masis.js'))
+    .pipe(gulp.dest('dist'))
 	 	.pipe(uglify())
+    .pipe(rename('masis.min.js'))
 		.pipe(gulp.dest('dist'));
 });
 
-//watch
-gulp.task('default', function() {
-	gulp.start('coffee');
-	//watch .coffee files
-	gulp.watch('src/**/*.coffee', function(event) {
-		gulp.start('coffee');
-	});
+gulp.task('default', ['coffee'], function() {
+	gulp.watch('src/**/*.coffee', ['coffee']);
 });

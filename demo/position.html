@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="demo.css">
+    <style>
+      #sandbox-position {
+      	width: 80%;
+      	margin: 0 auto;
+      	list-style: none;
+      	overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sandbox-position"></div>
+    <script src="../dist/masis.js"></script>
+    <script src="demo.js"></script>
+    <script>
+      var sbp = document.querySelector('#sandbox-position'),
+        dylay = new Masis('#sandbox-position');
+      addBlocks(100, sbp);
+      dylay.populate().position().view(50);
+      setTimeout(function() {
+      	addBlocks(10, sbp);
+      	dylay.populate().sort().filter('.consonne').position();
+      }, 1000);
+    </script>
+  </body>
+</html>

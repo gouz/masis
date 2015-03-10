@@ -11,5 +11,17 @@ class Masis
   _init: (element) ->
     @element = element
     @populate()
-
+  populate:  ->
+    @children = []
+    for i in @element.children
+      @children.push i if i.nodeType isnt 8
+    @actives = @children
+    @view()
+  view: (nb = 0, start = 0) ->
+    nb = parseInt nb
+    Array.prototype.forEach.call @children, (el) ->
+      el.style.display = 'none'
+    Array.prototype.forEach.call @actives, (el, i) =>
+      el.style.display = '' if not nb or (nb and start <= i < nb + start)
+    @
 @Masis = Masis
