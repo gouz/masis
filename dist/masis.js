@@ -197,7 +197,7 @@
   };
 
   Masis.prototype.scroll = function(opts) {
-    var content, dragH, dragV, elmnt, h, horizontal, move, moving, previous, rh, rw, trackH, trackV, vertical, w, wheeling, xy;
+    var ch, content, cw, dragH, dragV, eh, elmnt, ew, h, horizontal, move, moving, movingEvent, previous, rh, rw, trackH, trackV, vertical, w, wheeling, xy;
     if (opts == null) {
       opts = {};
     }
@@ -208,56 +208,81 @@
       opts.pad = 10;
     }
     elmnt = this.element;
-    elmnt.style.position = 'relative';
-    elmnt.style.overflow = 'hidden';
     elmnt.innerHTML = '<div class="mscr-content">' + elmnt.innerHTML + '</div>';
     content = elmnt.querySelector('.mscr-content');
     content.style.width = elmnt.offsetWidth + 'px';
     content.style.height = elmnt.offsetHeight + 'px';
-    content.style.position = 'absolute';
-    content.style.top = content.style.left = 0;
     if (opts.height != null) {
       elmnt.style.height = opts.height;
     }
     if (opts.width != null) {
       elmnt.style.width = opts.width;
     }
-    rw = parseInt(elmnt.offsetWidth) / parseInt(content.offsetWidth);
-    rh = parseInt(elmnt.offsetHeight) / parseInt(content.offsetHeight);
+    cw = parseInt(content.offsetWidth);
+    ch = parseInt(content.offsetHeight);
+    ew = parseInt(elmnt.offsetWidth);
+    eh = parseInt(elmnt.offsetHeight);
+    rw = ew / cw;
+    rh = eh / ch;
+    elmnt.style.position = 'relative';
+    elmnt.style.overflow = 'hidden';
+    content.style.position = 'absolute';
+    content.style.top = content.style.left = 0;
     horizontal = rw < 1;
     vertical = rh < 1;
-    if (horizontal) {
-      elmnt.innerHTML += '<div class="mscr-track-h"><div class="mscr-drag-h"/></div>';
-      trackH = elmnt.querySelector('.mscr-track-h');
-      dragH = elmnt.querySelector('.mscr-drag-h');
-      trackH.style.position = 'absolute';
-      trackH.style.bottom = trackH.style.left = 0;
-      trackH.style.height = opts.gutter + 'px';
-      dragH.style.position = 'absolute';
-      dragH.style.top = dragH.style.left = 0;
-      dragH.style.height = opts.gutter + 'px';
-    }
-    if (vertical) {
-      elmnt.innerHTML += '<div class="mscr-track-v"><div class="mscr-drag-v"/></div>';
-      trackV = elmnt.querySelector('.mscr-track-v');
-      dragV = elmnt.querySelector('.mscr-drag-v');
-      trackV.style.position = 'absolute';
-      trackV.style.top = trackV.style.right = 0;
-      trackV.style.width = opts.gutter + 'px';
-      dragV.style.position = 'absolute';
-      dragV.style.top = dragV.style.left = 0;
-      dragV.style.width = opts.gutter + 'px';
-    }
-    if (horizontal && vertical) {
-      rw = (parseInt(elmnt.offsetWidth) - opts.gutter) / parseInt(content.offsetWidth);
-      rh = (parseInt(elmnt.offsetHeight) - opts.gutter) / parseInt(content.offsetHeight);
-    }
     previous = null;
     moving = false;
     xy = {
       X: 0,
       Y: 0
     };
+    movingEvent = function(e, xy, t) {
+      e.preventDefault();
+      moving = xy;
+      previous = e;
+      elmnt.classList.add('show-scrollbar');
+      return t.classList.add('moving');
+    };
+    if (horizontal) {
+      elmnt.innerHTML += '<div class="mscr-track-h"><div class="mscr-drag-h"/></div>';
+      trackH = elmnt.querySelector('.mscr-track-h');
+      dragH = trackH.querySelector('.mscr-drag-h');
+      trackH.style.position = 'absolute';
+      trackH.style.bottom = trackH.style.left = 0;
+      trackH.style.height = opts.gutter + 'px';
+      dragH.style.position = 'absolute';
+      dragH.style.top = dragH.style.left = 0;
+      dragH.style.height = opts.gutter + 'px';
+      w = ew;
+      if (vertical) {
+        w -= parseInt(opts.gutter);
+      }
+      trackH.style.width = w + 'px';
+      dragH.style.width = ~~(w * rw) + 'px';
+      dragH.addEventListener('mousedown', function(e) {
+        return movingEvent(e, 'X', this);
+      });
+    }
+    if (vertical) {
+      elmnt.innerHTML += '<div class="mscr-track-v"><div class="mscr-drag-v"/></div>';
+      trackV = elmnt.querySelector('.mscr-track-v');
+      dragV = trackV.querySelector('.mscr-drag-v');
+      trackV.style.position = 'absolute';
+      trackV.style.top = trackV.style.right = 0;
+      trackV.style.width = opts.gutter + 'px';
+      dragV.style.position = 'absolute';
+      dragV.style.top = dragV.style.left = 0;
+      dragV.style.width = opts.gutter + 'px';
+      dragV.addEventListener('mousedown', function(e) {
+        return movingEvent(e, 'Y', this);
+      });
+      h = eh;
+      if (horizontal) {
+        h -= opts.gutter;
+      }
+      trackV.style.height = h + 'px';
+      dragV.style.height = ~~(h * rh) + 'px';
+    }
     document.addEventListener('mouseup', function(e) {
       e.preventDefault();
       moving = false;
@@ -296,38 +321,6 @@
     };
     elmnt.addEventListener('mousewheel', wheeling, false);
     elmnt.addEventListener('DOMMouseScroll', wheeling, false);
-    if (dragH != null) {
-      dragH.addEventListener('mousedown', function(e) {
-        e.preventDefault();
-        moving = 'X';
-        previous = e;
-        elmnt.classList.add('show-scrollbar');
-        return this.classList.add('moving');
-      });
-    }
-    if (dragV != null) {
-      dragV.addEventListener('mousedown', function(e) {
-        e.preventDefault();
-        moving = 'Y';
-        previous = e;
-        elmnt.classList.add('show-scrollbar');
-        return this.classList.add('moving');
-      });
-    }
-    w = parseInt(elmnt.offsetWidth);
-    h = parseInt(elmnt.offsetHeight);
-    if (vertical && horizontal) {
-      w -= opts.gutter;
-      h -= opts.gutter;
-    }
-    if (horizontal) {
-      trackH.style.width = w + 'px';
-      dragH.style.width = ~~(w * rw) + 'px';
-    }
-    if (vertical) {
-      trackV.style.height = h + 'px';
-      dragV.style.height = ~~(h * rh) + 'px';
-    }
     move = function(pad) {
       var left, max, top;
       pad += xy[moving];
@@ -341,7 +334,7 @@
           left = 0;
         }
         dragH.style.left = left + 'px';
-        return content.style.left = ~~(-left / rw) + 'px';
+        return content.style.left = parseInt(-left / rw) + 'px';
       } else {
         top = pad;
         max = parseInt(trackV.offsetHeight) - parseInt(dragV.offsetHeight);
@@ -352,7 +345,7 @@
           top = 0;
         }
         dragV.style.top = top + 'px';
-        return content.style.top = ~~(-top / rh) + 'px';
+        return content.style.top = parseInt(-top / rh) + 'px';
       }
     };
     return this;
@@ -387,87 +380,6 @@
       this.element.appendChild(i);
     }
     return this.populate();
-  };
-
-  Masis.prototype.wheel = function(angle_min, angle_max) {
-    var button, cnst, i, items, radius, rect, wrapper, _i, _j, _len, _len1, _ref;
-    if (angle_min == null) {
-      angle_min = 0;
-    }
-    if (angle_max == null) {
-      angle_max = 360;
-    }
-    wrapper = document.querySelector(this.element.getAttribute('href'));
-    rect = this.element.getBoundingClientRect();
-    radius = (rect.right - rect.left) / 2;
-    button = {
-      top: rect.top + document.body.scrollTop + radius,
-      left: rect.left + document.body.scrollLeft + radius,
-      radius: radius
-    };
-    items = [];
-    this.element.style.position = 'relative';
-    this.element.style.zIndex = 2;
-    _ref = wrapper.children;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      i = _ref[_i];
-      if (i.nodeType !== 8) {
-        i.style.position = 'absolute';
-        items.push(i);
-      }
-    }
-    rect = items[0].getBoundingClientRect();
-    radius = (rect.right - rect.left) / 2;
-    for (_j = 0, _len1 = items.length; _j < _len1; _j++) {
-      i = items[_j];
-      i.style.left = (button.left - radius) + 'px';
-      i.style.top = (button.top - radius) + 'px';
-    }
-    cnst = Math.PI / 180;
-    return this.element.addEventListener('click', function(e) {
-      var D, N, a, c, calc, f, l, m, _k, _l, _len2, _len3, _results, _results1;
-      e.preventDefault();
-      if (wrapper.classList.contains('open')) {
-        wrapper.classList.remove('open');
-        _results = [];
-        for (_k = 0, _len2 = items.length; _k < _len2; _k++) {
-          i = items[_k];
-          i.style.marginLeft = 0;
-          _results.push(i.style.marginTop = 0);
-        }
-        return _results;
-      } else {
-        wrapper.classList.add('open');
-        l = items.length;
-        D = radius + button.radius;
-        N = f = 0;
-        calc = function() {
-          N = ~~(6 * ((angle_max - angle_min) / 360) * (1 + D / button.radius));
-          if (N > l) {
-            N = l;
-          }
-          return f = (angle_max - angle_min) / N;
-        };
-        calc();
-        c = 0;
-        m = 0;
-        _results1 = [];
-        for (_l = 0, _len3 = items.length; _l < _len3; _l++) {
-          i = items[_l];
-          if (c === N) {
-            c = 0;
-            m++;
-            D += radius * 2;
-            l -= N;
-            calc();
-          }
-          a = cnst * (angle_min + f * c++);
-          i.style.marginLeft = -(D * Math.cos(a)) + 'px';
-          _results1.push(i.style.marginTop = -(D * Math.sin(a)) + 'px');
-        }
-        return _results1;
-      }
-    }, false);
   };
 
 }).call(this);
