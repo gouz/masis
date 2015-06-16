@@ -1,7 +1,7 @@
 masis
 =====
 
-Masis is a tiny toolkit in JS, no depencies
+Masis is a tiny toolkit in JS, no dependencies
 
 Install
 -------
