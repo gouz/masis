@@ -28,11 +28,11 @@
     };
 
     Masis.prototype.populate = function() {
-      var i, _i, _len, _ref;
+      var i, len, m, ref;
       this.children = [];
-      _ref = this.element.children;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        i = _ref[_i];
+      ref = this.element.children;
+      for (m = 0, len = ref.length; m < len; m++) {
+        i = ref[m];
         if (i.nodeType !== 8) {
           this.children.push(i);
         }
@@ -69,7 +69,7 @@
   this.Masis = Masis;
 
   Masis.prototype.filter = function(selector) {
-    var i, match, matches, _i, _len, _ref;
+    var i, len, m, match, matches, ref;
     if (selector == null) {
       selector = '*';
     }
@@ -80,9 +80,9 @@
         return (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector).call(el, selector);
       };
       matches = [];
-      _ref = this.actives;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        i = _ref[_i];
+      ref = this.actives;
+      for (m = 0, len = ref.length; m < len; m++) {
+        i = ref[m];
         if (match(i, selector)) {
           matches.push(i);
         }
@@ -109,15 +109,15 @@
       return function() {
         imgs = _this.element.querySelectorAll('img[' + attr + ']');
         return Array.prototype.forEach.call(imgs, function(el) {
-          var rect, _ref;
+          var rect, ref;
           rect = el.getBoundingClientRect();
-          if ((-threshold <= (_ref = rect.top - threshold) && _ref <= wheight)) {
+          if ((-threshold <= (ref = rect.top - threshold) && ref <= wheight)) {
             el.setAttribute('src', el.getAttribute(attr));
             el.removeAttribute(attr);
             return el.addEventListener('load', function() {
               this.style.opacity = 1;
               if (callback != null) {
-                return callback();
+                return callback(el);
               }
             }, false);
           }
@@ -131,7 +131,7 @@
   };
 
   Masis.prototype.position = function(opts) {
-    var hs, i, max, w, _i;
+    var hs, i, m, max, ref, w;
     if (opts == null) {
       opts = {};
     }
@@ -141,7 +141,7 @@
     w = parseInt(this.element.offsetWidth);
     this.element.style.position = 'relative';
     hs = [];
-    for (i = _i = 0; 0 <= w ? _i <= w : _i >= w; i = 0 <= w ? ++_i : --_i) {
+    for (i = m = 0, ref = w; 0 <= ref ? m <= ref : m >= ref; i = 0 <= ref ? ++m : --m) {
       hs[i] = 0;
     }
     max = function(x, w, hs) {
@@ -157,7 +157,7 @@
     };
     Array.prototype.forEach.call(this.actives, (function(_this) {
       return function(el, i) {
-        var $ih, $iw, h, j, k, x, _h, _k, _r, _results, _s, _w;
+        var $ih, $iw, _h, _k, _r, _s, _w, h, j, k, results, x;
         el.style.position = 'absolute';
         _s = getComputedStyle(el);
         _r = el.getBoundingClientRect();
@@ -185,11 +185,11 @@
         el.style.left = x + 'px';
         el.style.top = (h - $ih) + 'px';
         j = $iw;
-        _results = [];
+        results = [];
         while (j--) {
-          _results.push(hs[j + x] = h);
+          results.push(hs[j + x] = h);
         }
-        return _results;
+        return results;
       };
     })(this));
     this.element.style.height = (Math.max.apply(Math, hs)) + 'px';
@@ -354,7 +354,7 @@
   };
 
   Masis.prototype.sort = function(type, way) {
-    var children, i, _i, _len;
+    var children, i, len, m;
     if (type == null) {
       type = 'text';
     }
@@ -377,8 +377,8 @@
       }
       return r * va.localeCompare(vb);
     });
-    for (_i = 0, _len = children.length; _i < _len; _i++) {
-      i = children[_i];
+    for (m = 0, len = children.length; m < len; m++) {
+      i = children[m];
       this.element.appendChild(i);
     }
     return this.populate();

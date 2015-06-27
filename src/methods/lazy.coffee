@@ -10,7 +10,7 @@ Masis.prototype.lazy = (threshold = 0, attr = 'data-src', callback = null) ->
         el.removeAttribute attr
         el.addEventListener 'load', () ->
           @style.opacity = 1
-          callback() if callback?
+          callback(el) if callback?
         , false
   window.addEventListener 'scroll', () ->
     lazyload()

@@ -22,8 +22,8 @@
       var sbl = document.querySelector('#sandbox-lazy'),
         lazy;
       addImages(100, sbl);
-      lazy = new Masis('#sandbox-lazy').lazy(200, 'data-src', function() {
-      	console.log('test');
+      lazy = new Masis('#sandbox-lazy').lazy(200, 'data-src', function(e) {
+      	console.log('test', e);
       });
     </script>
   </body>
