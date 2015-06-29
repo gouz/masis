@@ -96,17 +96,19 @@ Masis.prototype.scroll = (opts = {}) ->
   move = (pad) ->
     pad += xy[moving]
     if moving is 'X'
-      left = pad
-      max = parseInt(trackH.offsetWidth) - parseInt(dragH.offsetWidth)
-      left = max if left > max
-      left = 0 if left < 0
-      dragH.style.left = left + 'px'
-      content.style.left = parseInt(-left/rw) + 'px'
+      if trackH? and dragH?
+        left = pad
+        max = parseInt(trackH.offsetWidth) - parseInt(dragH.offsetWidth)
+        left = max if left > max
+        left = 0 if left < 0
+        dragH.style.left = left + 'px'
+        content.style.left = parseInt(-left/rw) + 'px'
     else
-      top = pad
-      max = parseInt(trackV.offsetHeight) - parseInt(dragV.offsetHeight)
-      top = max if top > max
-      top = 0 if top < 0
-      dragV.style.top = top + 'px'
-      content.style.top = parseInt(-top/rh) + 'px'
+      if trackV? and dragV?
+        top = pad
+        max = parseInt(trackV.offsetHeight) - parseInt(dragV.offsetHeight)
+        top = max if top > max
+        top = 0 if top < 0
+        dragV.style.top = top + 'px'
+        content.style.top = parseInt(-top/rh) + 'px'
   @

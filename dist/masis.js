@@ -327,27 +327,31 @@
       var left, max, top;
       pad += xy[moving];
       if (moving === 'X') {
-        left = pad;
-        max = parseInt(trackH.offsetWidth) - parseInt(dragH.offsetWidth);
-        if (left > max) {
-          left = max;
+        if ((trackH != null) && (dragH != null)) {
+          left = pad;
+          max = parseInt(trackH.offsetWidth) - parseInt(dragH.offsetWidth);
+          if (left > max) {
+            left = max;
+          }
+          if (left < 0) {
+            left = 0;
+          }
+          dragH.style.left = left + 'px';
+          return content.style.left = parseInt(-left / rw) + 'px';
         }
-        if (left < 0) {
-          left = 0;
-        }
-        dragH.style.left = left + 'px';
-        return content.style.left = parseInt(-left / rw) + 'px';
       } else {
-        top = pad;
-        max = parseInt(trackV.offsetHeight) - parseInt(dragV.offsetHeight);
-        if (top > max) {
-          top = max;
+        if ((trackV != null) && (dragV != null)) {
+          top = pad;
+          max = parseInt(trackV.offsetHeight) - parseInt(dragV.offsetHeight);
+          if (top > max) {
+            top = max;
+          }
+          if (top < 0) {
+            top = 0;
+          }
+          dragV.style.top = top + 'px';
+          return content.style.top = parseInt(-top / rh) + 'px';
         }
-        if (top < 0) {
-          top = 0;
-        }
-        dragV.style.top = top + 'px';
-        return content.style.top = parseInt(-top / rh) + 'px';
       }
     };
     return this;
