@@ -304,12 +304,15 @@
       }
     });
     wheeling = function(e) {
-      e.preventDefault();
       if (e.originalEvent != null) {
         e = e.originalEvent;
       }
       elmnt.classList.add('show-scrollbar');
       moving = e.shiftKey || e.wheelDeltaX ? 'X' : 'Y';
+      if ((moving === 'Y') && (parseInt(elmnt.style.height) > parseInt(content.style.height))) {
+        return true;
+      }
+      e.preventDefault();
       move(opts.pad * ((e.wheelDelta || -e.detail) < 0 ? 1 : -1));
       moving = false;
       elmnt.classList.remove('show-scrollbar');
