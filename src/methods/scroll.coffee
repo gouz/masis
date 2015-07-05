@@ -84,7 +84,7 @@ Masis.prototype.scroll = (opts = {}) ->
     e = e.originalEvent if e.originalEvent?
     elmnt.classList.add 'show-scrollbar'
     moving = if e.shiftKey || e.wheelDeltaX then 'X' else 'Y'
-    if (moving is 'Y') and (parseInt(elmnt.style.height) > parseInt content.style.height)
+    if (moving is 'Y') and (parseInt(elmnt.style.height) >= parseInt content.style.height)
       return true
     e.preventDefault()
     move(opts.pad * (if (e.wheelDelta || -e.detail) < 0 then 1 else -1))

@@ -309,7 +309,7 @@
       }
       elmnt.classList.add('show-scrollbar');
       moving = e.shiftKey || e.wheelDeltaX ? 'X' : 'Y';
-      if ((moving === 'Y') && (parseInt(elmnt.style.height) > parseInt(content.style.height))) {
+      if ((moving === 'Y') && (parseInt(elmnt.style.height) >= parseInt(content.style.height))) {
         return true;
       }
       e.preventDefault();
