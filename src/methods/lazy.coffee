@@ -6,13 +6,17 @@ Masis.prototype.lazy = (threshold = 0, attr = 'data-src', callback = null) ->
     Array.prototype.forEach.call imgs, (el) ->
       rect = el.getBoundingClientRect()
       if -threshold <= (rect.top - threshold) <= wheight
-        el.setAttribute('src', el.getAttribute attr)
         el.removeAttribute attr
+        el.setAttribute('src', el.getAttribute attr)
+        el.style.opacity = 1
         el.addEventListener 'load', ->
-          @style.opacity = 1
           callback(el) if callback?
         , false
+  lazytime = null
   window.addEventListener 'scroll', ->
-    lazyload()
+    clearTimeout lazytime
+    lazytime = setTimeout ->
+      lazyload()
+    , 10
   , false
   lazyload()

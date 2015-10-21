@@ -93,7 +93,7 @@
   };
 
   Masis.prototype.lazy = function(threshold, attr, callback) {
-    var imgs, lazyload, wheight;
+    var imgs, lazyload, lazytime, wheight;
     if (threshold == null) {
       threshold = 0;
     }
@@ -112,10 +112,10 @@
           var rect, ref;
           rect = el.getBoundingClientRect();
           if ((-threshold <= (ref = rect.top - threshold) && ref <= wheight)) {
-            el.setAttribute('src', el.getAttribute(attr));
             el.removeAttribute(attr);
+            el.setAttribute('src', el.getAttribute(attr));
+            el.style.opacity = 1;
             return el.addEventListener('load', function() {
-              this.style.opacity = 1;
               if (callback != null) {
                 return callback(el);
               }
@@ -124,8 +124,12 @@
         });
       };
     })(this);
+    lazytime = null;
     window.addEventListener('scroll', function() {
-      return lazyload();
+      clearTimeout(lazytime);
+      return lazytime = setTimeout(function() {
+        return lazyload();
+      }, 10);
     }, false);
     return lazyload();
   };
