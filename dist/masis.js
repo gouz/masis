@@ -112,8 +112,8 @@
           var rect, ref;
           rect = el.getBoundingClientRect();
           if ((-threshold <= (ref = rect.top - threshold) && ref <= wheight)) {
-            el.removeAttribute(attr);
             el.setAttribute('src', el.getAttribute(attr));
+            el.removeAttribute(attr);
             el.style.opacity = 1;
             return el.addEventListener('load', function() {
               if (callback != null) {
