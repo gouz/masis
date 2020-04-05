@@ -1,6 +1,5 @@
-class _Masis {
-  constructor(selector, options = {}) {
-    this.options = options;
+class Masis {
+  constructor(selector) {
     let $elements, returns;
     $elements = document.querySelectorAll(selector);
     returns = [];
@@ -19,7 +18,8 @@ class _Masis {
   _init($element) {
     this.$element = $element;
     return this.populate();
-  }
+  };
+  
   populate() {
     this.$children = [];
     let children = this.$element.children;
@@ -29,6 +29,7 @@ class _Masis {
     this.$actives = this.$children;
     return this.view();
   }
+  
   view(nb = 0, start = 0) {
     nb = parseInt(nb);
     this.$children.forEach(($el) => {
@@ -41,4 +42,8 @@ class _Masis {
     });
     return this;
   }
-}
+};
+
+
+const _Masis = Masis;
+export { _Masis as Masis };

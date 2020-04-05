@@ -1,6 +1,7 @@
 {
   "name": "masis",
-  "version": "1.0.3",
+  "version": "2.0.0",
+  "main": "dist/masis.js",
   "description": "Tiny toolkit",
   "repository": {
     "type": "git",
@@ -14,5 +15,10 @@
     "scrooly"
   ],
   "author": "Sylvain Gougouzian",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "rollup": "^2.3.3",
+    "rollup-plugin-bundle-size": "^1.0.3",
+    "rollup-plugin-uglify": "^6.0.4"
+  }
 }
