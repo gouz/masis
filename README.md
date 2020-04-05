@@ -3,10 +3,6 @@ masis
 
 Masis is a tiny toolkit in JS, no dependencies
 
-Install
--------
-bower install masis
-
 Use
 ---
 ```
