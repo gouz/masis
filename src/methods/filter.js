@@ -1,6 +1,4 @@
-import { Masis } from '../core';
-
-Masis.prototype.filter = function (selector = '*') {
+_Masis.prototype.filter = function (selector = '*') {
   if ('*' == selector)
     this.$actives = this.$children;
   else {
@@ -16,6 +14,3 @@ Masis.prototype.filter = function (selector = '*') {
     return this.view();
   }
 }
-
-const _Masis = Masis;
-export { _Masis as Masis };

@@ -1,6 +1,4 @@
-import { Masis } from '../core';
-
-Masis.prototype.position = function (opts = {}) {
+_Masis.prototype.position = function (opts = {}) {
   if (opts.pad == null) opts.pad = 1;
   let width = parseInt(this.$element.offsetWidth);
   this.$element.style.position = 'relative';
@@ -58,6 +56,3 @@ Masis.prototype.position = function (opts = {}) {
   this.$element.style.height = Math.max.apply(Math, hs) + 'px';
   return this;
 };
-
-const _Masis = Masis;
-export { _Masis as Masis };

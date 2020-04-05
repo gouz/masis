@@ -1,6 +1,6 @@
 {
-  "name": "masis.js",
-  "version": "1.0.0",
+  "name": "masis",
+  "version": "1.0.3",
   "description": "Tiny toolkit",
   "repository": {
     "type": "git",
@@ -14,10 +14,5 @@
     "scrooly"
   ],
   "author": "Sylvain Gougouzian",
-  "license": "MIT",
-  "devDependencies": {
-    "gulp": "^4.0.2",
-    "pnp-webpack-plugin": "^1.6.4",
-    "webpack-stream": "^5.2.1"
-  }
+  "license": "MIT"
 }

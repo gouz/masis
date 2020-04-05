@@ -1,6 +1,4 @@
-import { Masis } from '../core';
-
-Masis.prototype.lazy = function (
+_Masis.prototype.lazy = function (
   threshold = 0,
   attr = 'data-src',
   callback = null
@@ -35,6 +33,3 @@ Masis.prototype.lazy = function (
   lazyload();
   return this;
 };
-
-const _Masis = Masis;
-export { _Masis as Masis };

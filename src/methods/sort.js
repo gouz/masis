@@ -1,6 +1,4 @@
-import { Masis } from '../core';
-
-Masis.prototype.sort = (type = 'text', way = 'ASC') => {
+_Masis.prototype.sort = (type = 'text', way = 'ASC') => {
   way = way.toUpperCase();
   let children = Array.from(this.$children);
   children.sort(($a, $b) => {
@@ -20,6 +18,3 @@ Masis.prototype.sort = (type = 'text', way = 'ASC') => {
   });
   return this.populate();
 };
-
-const _Masis = Masis;
-export { _Masis as Masis };

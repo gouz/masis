@@ -1,4 +1,4 @@
-class Masis {
+class _Masis {
   constructor(selector, options = {}) {
     this.options = options;
     let $elements, returns;
@@ -42,6 +42,3 @@ class Masis {
     return this;
   }
 }
-
-const _Masis = Masis;
-export { _Masis as Masis };
