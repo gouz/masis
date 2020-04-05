@@ -1,20 +1,21 @@
-import {Masis} from '../core';
-
-export function MasisFilter() {
-  Masis.filter = function (selector = '*') {
-    if ('*' == selector)
-      this.$actives = this.$children;
-    else {
-      let match = function($el, selector) {
-        return ($el.matches || $el.matchesSelector || $el.msMatchesSelector || $el.mozMatchesSelector || $el.webkitMatchesSelector || $el.oMatchesSelector).call($el, selector);
-      };
-      let matches = [];
-      this.$actives.forEach(($el) => {
-        if (match($el, selector))
-          matches.push($el);
-      });
-      this.$actives = matches;
-      return this.view();
-    }
-  };
-};
+export function MasisFilter(Masis, selector = '*') {
+  if ('*' == selector) Masis.$actives = Masis.$children;
+  else {
+    let match = function ($el, selector) {
+      return (
+        $el.matches ||
+        $el.matchesSelector ||
+        $el.msMatchesSelector ||
+        $el.mozMatchesSelector ||
+        $el.webkitMatchesSelector ||
+        $el.oMatchesSelector
+      ).call($el, selector);
+    };
+    let matches = [];
+    Masis.$actives.forEach(($el) => {
+      if (match($el, selector)) matches.push($el);
+    });
+    Masis.$actives = matches;
+    return Masis.view();
+  }
+}

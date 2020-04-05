@@ -18,8 +18,8 @@ class Masis {
   _init($element) {
     this.$element = $element;
     return this.populate();
-  };
-  
+  }
+
   populate() {
     this.$children = [];
     let children = this.$element.children;
@@ -29,7 +29,7 @@ class Masis {
     this.$actives = this.$children;
     return this.view();
   }
-  
+
   view(nb = 0, start = 0) {
     nb = parseInt(nb);
     this.$children.forEach(($el) => {
@@ -42,8 +42,7 @@ class Masis {
     });
     return this;
   }
-};
-
+}
 
 const _Masis = Masis;
 export { _Masis as Masis };
