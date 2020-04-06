@@ -1,5 +1,5 @@
 /*!
- * masis.js v2.0.6
+ * masis.js v2.1.0
  * 2015-2020 Sylvain Gougouzian
  * Licensed under MIT
  * github.com/gouz/masis
@@ -10,7 +10,7 @@
   (global = global || self, global.masis = factory());
 }(this, (function () { 'use strict';
 
-  class Masis$1 {
+  class Masis {
     constructor(selector) {
       let $elements, returns;
       $elements = document.querySelectorAll(selector);
@@ -56,7 +56,7 @@
     }
   }
 
-  const _Masis = Masis$1;
+  const _Masis = Masis;
 
   function MasisFilter(Masis, selector = '*') {
     if ('*' == selector) Masis.$actives = Masis.$children;
@@ -127,7 +127,6 @@
   function MasisPosition(Masis, opts = {}) {
     if (opts.pad == null) opts.pad = 1;
     let width = parseInt(Masis.$element.offsetWidth);
-    console.log(width);
     Masis.$element.style.position = 'relative';
     let hs = [];
     for (let i = 0; i < width; i++) hs[i] = 0;
@@ -184,21 +183,20 @@
     return Masis;
   }
 
-  function MasisSort(type = 'text', way = 'ASC') {
+  function MasisSort(Masis, type = 'text', way = 'ASC') {
     way = way.toUpperCase();
     let children = Array.from(Masis.$children);
     children.sort(($a, $b) => {
-      let t = type.slice(1, -1);
+      const t = type.slice(1, -1);
       let va = type !== 'text' ? $a.getAttribute(t) : a.innerHTML;
       let vb = type !== 'text' ? $b.getAttribute(t) : b.innerHTML;
-      let r = way === 'ASC' ? 1 : -1;
+      const r = way === 'ASC' ? 1 : -1;
       if (va == null) va = '';
       if (vb == null) vb = '';
       return r * va.localeCompare(vb);
     });
-    chidren.foreach(($i) => {
-      Masis.$element.appendChild($i);
-    });
+    for (let i = 0; i < children.length; i++)
+      Masis.$element.appendChild(children[i]);
     return Masis.populate();
   }
 
